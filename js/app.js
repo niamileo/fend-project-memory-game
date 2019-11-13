@@ -1,4 +1,5 @@
 let cards = document.querySelector('ul.deck');
+var timing = 0;
 /*
  * Create a list that holds all of your cards
  */
@@ -21,11 +22,13 @@ const allCards = [
  *   - add each card's HTML to the page
  */
 function initGame() {
+    timing = 0;
+    setInterval(function() { timing++; }, 1000);
     var cardsHtml = shuffle(allCards).map(function(card) {
         return generateCard(card);
     });
     cards.innerHTML = cardsHtml.join('');
-    console.log(cardsHtml);
+    // console.log(cardsHtml);
 }
 
 initGame();
@@ -68,7 +71,7 @@ let openedCards = [];
 cards.addEventListener('click', function(e) {
     if (e.target.nodeName === 'LI') {
         if (!e.target.classList.contains('open') && !e.target.classList.contains('show') && !e.target.classList.contains('match')) {
-            console.log(!e.target.classList.contains('open'));
+            // console.log(!e.target.classList.contains('open'));
             openedCards.push(e.target);
             e.target.classList.add('open', 'show');
 
