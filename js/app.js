@@ -2,6 +2,8 @@ let cards = document.querySelector('ul.deck');
 var timing = 0;
 let matches = 0;
 var gameTime;
+let moves = document.querySelector('span.moves');
+let movesCounter = 0;
 /*
  * Create a list that holds all of your cards
  */
@@ -24,6 +26,8 @@ const allCards = [
  *   - add each card's HTML to the page
  */
 function initGame() {
+    moves.innerText = 0;
+    movesCounter = 0;
     timing = 0;
     matches = 0;
     gameTime = 0;
@@ -80,7 +84,7 @@ cards.addEventListener('click', function(e) {
             e.target.classList.add('open', 'show');
 
             if (openedCards.length === 2) {
-
+                moves.innerText = ++movesCounter;
                 // Check if they Match
                 if (openedCards[0].dataset.card === openedCards[1].dataset.card) {
                     openedCards[0].classList.add('match');
