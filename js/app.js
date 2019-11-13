@@ -21,7 +21,7 @@ const allCards = [
  *   - add each card's HTML to the page
  */
 function initGame() {
-    var cardsHtml = allCards.map(function(card) {
+    var cardsHtml = shuffle(allCards).map(function(card) {
         return generateCard(card);
     });
     cards.innerHTML = cardsHtml.join('');
@@ -33,6 +33,7 @@ initGame();
 function generateCard(card) {
     return `<li class="card" data-card="${card}"><i class="fa ${card}"></i></li>`;
 }
+
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
     var currentIndex = array.length,
