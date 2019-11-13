@@ -1,5 +1,7 @@
 let cards = document.querySelector('ul.deck');
 var timing = 0;
+let matches = 0;
+var gameTime;
 /*
  * Create a list that holds all of your cards
  */
@@ -23,7 +25,9 @@ const allCards = [
  */
 function initGame() {
     timing = 0;
-    setInterval(function() { timing++; }, 1000);
+    matches = 0;
+    gameTime = 0;
+    gameTime = setInterval(function() { timing++; }, 1000);
     var cardsHtml = shuffle(allCards).map(function(card) {
         return generateCard(card);
     });
@@ -80,8 +84,10 @@ cards.addEventListener('click', function(e) {
                 // Check if they Match
                 if (openedCards[0].dataset.card === openedCards[1].dataset.card) {
                     openedCards[0].classList.add('match');
+                    matches++;
                     openedCards[0].classList.remove('open', 'show');
                     openedCards[1].classList.add('match');
+                    matches++;
                     openedCards[1].classList.remove('open', 'show');
                 }
 
@@ -94,5 +100,16 @@ cards.addEventListener('click', function(e) {
                 }, 400);
             }
         }
+        if (matches === 16) {
+            winning();
+        }
     }
 });
+
+function winning() {
+    clearInterval(gameTime);
+    setTimeout(function() {
+        confirm(`Congradulations! You Won! .. Your time is: ${timing} Seconds
+        Restart the Game?`) ? initGame() : alert(`Thanks for playing`);
+    }, 1000);
+}
