@@ -4,6 +4,7 @@ let matches = 0;
 var gameTime;
 let moves = document.querySelector('span.moves');
 let movesCounter = 0;
+let restartBtn = document.querySelector('div.restart');
 /*
  * Create a list that holds all of your cards
  */
@@ -30,7 +31,7 @@ function initGame() {
     movesCounter = 0;
     timing = 0;
     matches = 0;
-    gameTime = 0;
+    clearInterval(gameTime);
     gameTime = setInterval(function() { timing++; }, 1000);
     var cardsHtml = shuffle(allCards).map(function(card) {
         return generateCard(card);
@@ -117,3 +118,7 @@ function winning() {
         Restart the Game?`) ? initGame() : alert(`Thanks for playing`);
     }, 1000);
 }
+
+restartBtn.addEventListener('click', function() {
+    confirm('restart The Game?') ? initGame() : "";
+});
