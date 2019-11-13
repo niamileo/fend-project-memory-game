@@ -20,6 +20,9 @@ const allCards = [
  *   - add each card's HTML to the page
  */
 
+function generateCard(card) {
+    return `<li class="card" data-card="${card}"><i class="fa ${card}"></i></li>`;
+}
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
     var currentIndex = array.length,
