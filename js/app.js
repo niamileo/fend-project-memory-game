@@ -37,3 +37,35 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+let cards = document.querySelector('ul.deck');
+let openedCards = [];
+
+cards.addEventListener('click', function(e) {
+    if (e.target.nodeName === 'LI') {
+        if (!e.target.classList.contains('open') && !e.target.classList.contains('show') && !e.target.classList.contains('match')) {
+            console.log(!e.target.classList.contains('open'));
+            openedCards.push(e.target);
+            e.target.classList.add('open', 'show');
+
+            if (openedCards.length === 2) {
+
+                // Check if they Match
+                if (openedCards[0].dataset.card === openedCards[1].dataset.card) {
+                    openedCards[0].classList.add('match');
+                    openedCards[0].classList.remove('open', 'show');
+                    openedCards[1].classList.add('match');
+                    openedCards[1].classList.remove('open', 'show');
+                }
+
+
+                // If they don't Match
+                setTimeout(function() {
+                    openedCards[0].classList.remove('open', 'show');
+                    openedCards[1].classList.remove('open', 'show');
+                    openedCards = []
+                }, 400);
+            }
+        }
+    }
+});
