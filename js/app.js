@@ -1,3 +1,4 @@
+let cards = document.querySelector('ul.deck');
 /*
  * Create a list that holds all of your cards
  */
@@ -19,6 +20,15 @@ const allCards = [
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
+function initGame() {
+    var cardsHtml = allCards.map(function(card) {
+        return generateCard(card);
+    });
+    cards.innerHTML = cardsHtml.join('');
+    console.log(cardsHtml);
+}
+
+initGame();
 
 function generateCard(card) {
     return `<li class="card" data-card="${card}"><i class="fa ${card}"></i></li>`;
@@ -51,7 +61,7 @@ function shuffle(array) {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
-let cards = document.querySelector('ul.deck');
+
 let openedCards = [];
 
 cards.addEventListener('click', function(e) {
