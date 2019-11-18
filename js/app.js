@@ -5,6 +5,7 @@ var gameTime;
 let moves = document.querySelector('span.moves');
 let movesCounter = 0;
 let restartBtn = document.querySelector('div.restart');
+let stars = document.querySelectorAll('.stars li i');
 /*
  * Create a list that holds all of your cards
  */
@@ -31,6 +32,7 @@ function initGame() {
     movesCounter = 0;
     timing = 0;
     matches = 0;
+    clearStars();
     clearInterval(gameTime);
     gameTime = setInterval(function() { timing++; }, 1000);
     var cardsHtml = shuffle(allCards).map(function(card) {
@@ -86,6 +88,7 @@ cards.addEventListener('click', function(e) {
 
             if (openedCards.length === 2) {
                 moves.innerText = ++movesCounter;
+                checkStars();
                 // Check if they Match
                 if (openedCards[0].dataset.card === openedCards[1].dataset.card) {
                     openedCards[0].classList.add('match');
@@ -122,3 +125,35 @@ function winning() {
 restartBtn.addEventListener('click', function() {
     confirm('restart The Game?') ? initGame() : "";
 });
+
+function checkStars() {
+    switch (movesCounter) {
+        case 15:
+            stars.item(2).classList.replace('fa-star', 'fa-star-half-o');
+            break;
+        case 17:
+            stars.item(2).classList.replace('fa-star-half-o', 'fa-star-o');
+            break;
+        case 19:
+            stars.item(1).classList.replace('fa-star', 'fa-star-half-o');
+            break;
+        case 21:
+            stars.item(1).classList.replace('fa-star-half-o', 'fa-star-o');
+            break;
+        case 23:
+            stars.item(0).classList.replace('fa-star', 'fa-star-half-o');
+            break;
+        case 25:
+            stars.item(0).classList.replace('fa-star-half-o', 'fa-star-o');
+            break;
+    }
+}
+
+function clearStars() {
+    stars.item(0).classList.remove('fa-star-half-o', 'fa-star-o');
+    stars.item(0).classList.add('fa-star');
+    stars.item(1).classList.remove('fa-star-half-o', 'fa-star-o');
+    stars.item(1).classList.add('fa-star');
+    stars.item(2).classList.remove('fa-star-half-o', 'fa-star-o');
+    stars.item(2).classList.add('fa-star');
+}
